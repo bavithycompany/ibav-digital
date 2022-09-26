@@ -1,0 +1,23 @@
+    {% extends 'base.html' %}
+
+        {% load markdown_extras %}
+
+        {% block content %}
+        <section class="page-section page-article">
+            <div class="container">
+                <div class="row">
+                    <h1 style="margin-top: 30px;">{{ article.titre }}</h1>
+                    <center>
+                    <div class="row en_tete img-article colone">
+                        <img src="{{ article.image.url }}">
+                    </div>
+                    </center>
+                    <div class="section-article">
+                        <div class="section-article-content">
+                            {{ article.content|markdown_filter|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endblock %}
