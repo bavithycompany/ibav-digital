@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+
+        <section class="page-section" id="contact">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Obtenir une soumission</h2>
+                    <h3 class="section-subheading text-muted">Remplissez ce formulaire pour une soumission gratuite !</h3>
+                </div>
+
+
+                <form class="form-devis" id="Form" name="Form" method="post" onsubmit="return valider()" action="{% url 'devis_registration' %}">
+                    {% csrf_token %}
+                    <div class="row align-items-stretch mb-5">
+                        <div class="col-md-6 section_devis">
+                            <div class="row">
+                                <div class="input_devis">
+                                    <input type="text" required id="name" name="name" placeholder="Nom *">
+                                </div>
+                                <div class="input_devis">
+                                    <input type="text" required id="companyName" name="companyName" placeholder="Nom de l'entreprise *">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col input_devis">
+                                    <input type="text" required id="email" name="email" placeholder="Email *">
+                                </div>
+                                <div class="col input_devis">
+                                    <input type="text" required id="phone" name="phone" placeholder="Telephone *">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col input_devis">
+                                    <input type="text" required id="budget" name="budget" placeholder="Budget *"">
+                                </div>
+                                <div class="col input_devis">
+                                    <select name="projet" required id="projet">
+                                        <option value="">---------</option>
+                                        <option value="1">Conception graphique</option>
+                                        <option value="2">Marketing web</option>
+                                        <option value="3">Conception web</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 section_devis">
+                            <textarea placeholder="Decrivez votre projet" required id="message" name="message"></textarea>
+                        </div>
+                        <div class="btn-devis" style="margin-top: 20px;">
+                            <button class="btn btn-primary text-uppercase" type="submit">Soumettre</button>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+        </section>
+
+    {% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+
+    {% load static %}
+    {% load bootstrap_icons %}
+        <!-- portfolio grid-->
+
+        <section class="page-section bg-light portfolio_" id="portfolio">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Portfolio</h2>
+                    <h3 class="section-subheading text-muted">Découvrez toutes mes réalisations.</h3>
+                </div>
+                <div class="row">
+                    {% for portfolio in portfolio %}
+                    <div class="col-sm">
+                        <!-- Portfolio item 1-->
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#modal{{ portfolio.pk }}">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fa fa-plus" style="font-size: 60px;"></i></div>
+                                </div>
+                                <img class="img-fluid" src="{{ portfolio.image.url }}" alt="Portfolio" />
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">{{ portfolio.name }}</div>
+                                <div class="portfolio-caption-subheading text-muted">{{ portfolio.service.name }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <!-- Portfolio Modals-->
+        <!-- Portfolio item modal popup-->
+
+        {% for portfolio in portfolio %}
+
+        <div class="portfolio-modal modal fade" id="modal{{ portfolio.pk }}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h3 class="text-uppercase">{{ portfolio.name }}</h3>
+                                    <p class="item-intro text-muted">Toujours au service de la clientele.</p>
+                                    <img class="img-fluid d-block mx-auto" src="{{ portfolio.image.url }}" alt="..." />
+                                    <p>{{ portfolio.description }}</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Category:</strong>
+                                            {{ portfolio.service.name }}
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                        <i class="fas fa-xmark me-1"></i>
+                                        Fermer
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {% endfor %}
+
+    {% endblock %}

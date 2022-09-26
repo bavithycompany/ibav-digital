@@ -1,0 +1,342 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Bavstrings</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/logo.png' %}" />
+        <!-- htmx -->
+        <script src="{% static 'htmx/htmx.min.js' %}"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!--CSS (incluant Bootstrap)-->
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+        <link rel="stylesheet" href="{% static 'css/n_style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    </head>
+    <body>
+        <!-- Masthead-->
+        <header class="masthead">
+            <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'assets/logo.png' %}" alt="..." width="70" height="420" /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		            <span class="navbar-toggler-icon"></span>
+		        </button>
+		        <div class="collapse navbar-collapse ul" id="navbarSupportedContent">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Services</a>
+
+                            <ul class="dropdown-menu" >
+                                {% for service in services %}
+                                <li><a class="dropdown-item" href="{% url 'service_details' service.slug %}">{{ service.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'blog' %}">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">A propos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="popup">
+                <div class="container">
+                    <i class="fa fa-check-circle" style="font-size: 50px; color: #ffc800;"></i><br>
+                    <br>
+                    <p>Vos détails ont bien été soumis et votre demande a été enregistrée. Nous vous contactons d'ici peu.</p>
+                    <button class="btn btn-primary text-uppercase" type="button" onclick="closepopup()">
+                        Fermer
+                    </button>
+                </div>
+            </div>
+        </nav>
+            <div class="container">
+                <div class="masthead-subheading">Bienvenue chez IBav  !</div>
+                <div class="masthead-heading text-uppercase">Changeons votre identité</div>
+                <a class="btn btn-primary btn-xl text-uppercase" href="{% url 'devis' %}">Obtenir un devis</a>
+            </div>
+
+        </header>
+
+
+        <!-- Services-->
+
+
+        <section class="page-section" id="services">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Services</h2>
+                    <h3 class="section-subheading text-muted">Se distinguer grâce à nos services de marques</h3>
+                </div>
+                <div class="row text-center">
+                    {% for service in services %}
+                    <div class="col-md-4">
+                        <a href="{% url 'service_details' service.slug %}">
+                            <div class="img_about team-member">
+                                <img class="mx-auto rounded-circle" src="{{ service.image.url }}">
+                            </div>
+                        </a>
+                        <h4 class="my-3">{{ service.name }}</h4>
+                        <p class="text-muted">{{ service.description|truncatewords:20 }}<a href="{% url 'service_details' service.slug %}">...En savoir plus</a> <!-- votre entreprise a vos clients grace a un site web tres professionnelles et a la fois ludique--></p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Partie details -->
+
+        <section style="margin-right: 30px; margin-left: 30px;">
+            <div class="container p_details">
+                <div class="row">
+                    <div class="col-md col_md">
+                        <h1><span class="vaut">VAUT </span>MIEUX L'AVOIR</h1>
+                        <p>Aujourd'hui, posséder un site web est indissociable pour une entreprise car l'image que vous
+                            projetez sur le web est déterminante. C'est pourquoi, pour une image professionnelle de votre
+                            activité et pour que l'opinion de vos client soit toujours dans la marge du satisfait, il est
+                            essentiel de disposer d'un site Internet attractif et fonctionnel. Ce sera un véritable plaisir
+                            de travailler avec vous.</p>
+                    </div>
+
+                    <div class="col">
+                        <img class="mx-auto" src="{% static 'assets/img/site.png' %}">
+                    </div>
+                </div>
+            </div>
+
+             <div class="container">
+                <div class="row details_bas">
+                    <div class="col">
+                        <img class="mx-auto" src="{% static 'assets/img/avoir.png' %}">
+                    </div>
+
+                    <div class="col-md">
+                        <br><br><br>
+                        <h1><span class="vaut">Jamais </span> sans les autres</h1>
+                        <p>Pour une image de plus en plus rayonnante, votre site doit aller de pair avec vos différentes
+                            pages de réseaux sociaux. C'est pourquoi, outre la conception de votre site moderne, nous vous
+                            offrons un service de marketing digital complet et optimal qui va même au community management.
+                            Laissez donc les perspectives de votre entreprise briller avec nos services de design moderne
+                            et propre, soyez professionel avec nos sites web futuristes et toucher de plus en plus de
+                            prospects grâce à notre stratégie marketing digne des plus grosses marques.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Portfolio Grid-->
+
+
+        <section class="page-section bg-light" id="portfolio">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Portfolio</h2>
+                    <h3 class="section-subheading text-muted">Voici quelques unes de nos realisations.</h3>
+                </div>
+                <div class="row">
+                    {% for portfolio in portfolio %}
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <!-- Portfolio item -->
+                        <div class="portfolio-item">
+                            <a class="portfolio-link shadow-lg" href="{% url 'portfolio' %}">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fa fa-plus" style="font-size: 60px;"></i></div>
+                                </div>
+                                <img class="img-fluid" src="{{ portfolio.image.url }}" alt="Portfolio" />
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">{{ portfolio.service.name }}</div>
+                                <div class="portfolio-caption-subheading text-muted">{{ portfolio.name }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- About and Skills-->
+
+
+        <section class="page-section" id="about">
+            <div class="text-center">
+                    <h2 class="section-heading text-uppercase">A propos</h2>
+                    <h3 class="section-subheading text-muted">Tout savoir de moi.</h3>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 img_about team-member">
+                        <img class="mx-auto rounded-circle" src="{% static 'assets/img/bavithy.png' %}">
+                    </div>
+                    <div class=" col-lg-6 about_description">
+                        <h2 class="text-center">Qui suis je ? </h2>
+                        <p>Je suis BAHANI VISSILEY THIERRY, un vrai amateur de digital et un ingénieur informatique en
+                            devenir. Je me suis lancé dans ce domaine en tant que concepteur digital freelance et m'efforce
+                            de faire de mon mieux pour toujours satisfaire mes clients. Déjà lancé et conscient de la
+                            nécessité de digitaliser nos produits,  je me donne donc d'apporter ma contribution à
+                            l'émergence des entreprises dans le web à travers IBav propulse par Bavithycompany</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <br> <br>
+
+            <div class="container compe">
+                <div class="row">
+                    <div class=" col-lg-6 about_description competence">
+                        <h2 class="text-center">Compétences</h2>
+
+                        <div class="skills">
+                            <div class="row">
+
+                                <div class="skill">
+                                    <h7>HTML/CSS</h7>
+                                    <div class="skill_level"><div class="skill_level1" style="width: 83%;"></div></div>
+                                    <div class="section-subheading text-muted percent">83%</div>
+                                </div>
+
+                                <div class="skill">
+                                    <h7>JAVASCRIPT/PHP</h7>
+                                    <div class="skill_level"><div class="skill_level1" style="width: 47%;"></div></div>
+                                    <div class="section-subheading text-muted percent">47%</div>
+                                </div>
+
+                                <div class="skill">
+                                    <h7>DJANGO, PYTHON</h7>
+                                    <div class="skill_level"><div class="skill_level1" style="width: 75%;"></div></div>
+                                    <div class="section-subheading text-muted percent">75%</div>
+                                </div>
+
+                                <div class="skill">
+                                    <h7>PHOTOSHOP, ILLUSTRATOR, INDESIGN</h7>
+                                    <div class="skill_level"><div class="skill_level1" style="width: 70%;"></div></div>
+                                    <div class="section-subheading text-muted percent">70%</div>
+                                </div>
+
+                                <div class="skill">
+                                    <h7>RESEAUX SOCIAUX </h7>
+                                    <div class="skill_level"><div class="skill_level1" style="width: 88%;"></div></div>
+                                    <div class="section-subheading text-muted percent">88%</div>
+                                </div>
+
+                                <div class="skill">
+                                    <h7>PSYCHANALYSE HUMAINE</h7>
+                                    <div class="skill_level"><div class="skill_level1" style="width: 55%;"></div></div>
+                                    <div class="section-subheading text-muted percent">55%</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 img_about team-member">
+                        <img class="mx-auto rounded-circle" src="{% static 'assets/img/moi.png' %}">
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Contact-->
+
+
+
+        <section class="page-section" id="contact">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Contactez-nous</h2>
+                    <h3 class="section-subheading text-muted">Avez vous des questions ou des suggestions ?</h3>
+                </div>
+
+
+                <form id="contactForm" name="contactForm" method="post" action="{% url 'contacter' %}" onsubmit="return valider()">
+                    {% csrf_token %}
+                    <div class="row align-items-stretch mb-5">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- Name input-->
+                                <input class="form-control" required id="name" type="text" placeholder="Votre nom *" name="C_username"/>
+                            </div>
+                            <div class="form-group">
+                                <!-- Email address input-->
+                                <input class="form-control" required id="email" type="email" placeholder="Votre email *" name="C_email"/>
+                            </div>
+                            <div class="form-group mb-md-0">
+                                <!-- Phone number input-->
+                                <input class="form-control" required id="phone" type="tel" placeholder="Telephone avec l'indicatif du pays *" name="C_telephone"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group form-group-textarea mb-md-0">
+                                <!-- Message input-->
+                                    <textarea class="form-control" required id="message" placeholder="Votre message *"  name="C_message"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Submit Button-->
+                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitButton"
+                                                     type="submit" onunload="popup()">Envoyer</button></div>
+                </form>
+
+
+            </div>
+        </section>
+
+
+        <!-- Footer-->
+
+
+        <footer class="footer py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 text-lg-start">Copyright &copy; Bavithycompany 2022</div>
+                    <div class="col-lg-4 my-3 my-lg-0">
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fa fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fa fa-linkedin"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fa fa-whatsapp"></i></a>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a class="link-dark text-decoration-none" href="{% url 'terms_of_use' %}">Conditions d'utilisation</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script type="text/javascript">
+
+            function popup(){
+                document.getElementById("popup").style.top = '-10px'
+            }
+
+            function closepopup(){
+                document.getElementById("popup").style.top = '-500px'
+            }
+
+        </script>
+
+        <a class="btn-fix" href="#" style="background: rgba(107, 123, 140, 0.4); border: none; height: 30px;"><i class="fa fa-sort-up" style="color: #fff; padding: 10px;"></i></a>
+        <!-- Bootstrap core JS-->
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/scripts.js' %}"></script>
+    </body>
+</html>

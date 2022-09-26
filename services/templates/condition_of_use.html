@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+    {% load markdown_extras %}
+
+    {% block content %}
+
+    {% load static %}
+    <section  class="page-section" style="margin: 50px;">
+        <div class="container">
+            <h1>Conditions d'utilisation</h1><br>
+            <p>{{ content.content|markdown_filter|safe }}</p>
+        </div>
+     </section>
+    {% endblock %}

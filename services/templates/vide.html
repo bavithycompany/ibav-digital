@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Bavstrings</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/logo.png' %}" />
+        <!-- htmx -->
+        <script src="{% static 'htmx/htmx.min.js' %}"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (incluant Bootstrap)-->
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+        <link rel="stylesheet" href="{% static 'css/nn_style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    </head>
+    <body id="blog">
+        <!-- Mastheaddd-->
+        <header class="mastheadd">
+            <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark" id="mainNav" style="text-align: center;">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'assets/logo.png' %}" alt="..." width="70" height="420" /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		            <span class="navbar-toggler-icon"></span>
+		        </button>
+		        <div class="collapse navbar-collapse ul" id="navbarSupportedContent">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Services</a>
+
+                            <ul class="dropdown-menu" >
+                                {% for service in services %}
+                                <li><a class="dropdown-item" href="{% url 'service_details' service.slug %}">{{ service.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'blog' %}">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">A propos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="popup">
+                <div class="container">
+                    <i class="fa fa-check-circle" style="font-size: 50px; color: #ffc800;"></i>
+                    <br>
+                    <p>Vos détails ont bien été soumis et votre demande a été enregistrée. Nous vous contactons d'ici peu.</p>
+                    <button class="btn btn-primary text-uppercase" type="reset" onclick="closepopup()">
+                        Fermer
+                    </button>
+                </div>
+            </div>
+
+        </nav>
+        </header>
+        {% if contacter %}
+            <script>
+                document.getElementById("popup").style.top = '-10px'
+            </script>
+        {% endif %}
+
+        <script type="text/javascript">
+            function closepopup(){
+                document.getElementById("popup").style.top = '-500px'
+                setTimeout(ext, 200);
+                function ext(){
+                    history.go(-1)
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% load static %}
+        <section class="page-section service_">
+            <div class="container">
+                <div class="row">
+                        <div class="col-lg-7 img_ser">
+                            <img src="{{ service.image.url }}">
+                        </div>
+                        <div class="col-lg-5 ecrit_service">
+                            <h3>{{ service.name }}</h3>
+                            <p>{{ service.description }}</p>
+
+                            <a class="btn btn-primary" href="{% url 'devis' %}">Obtenir un devis</a>
+                        </div>
+                </div>
+            </div>
+        </section>
+
+{% endblock %}
